@@ -22,10 +22,10 @@ public class FuelControler {
     private final FuelMapper fuelMapper;
 
     @GetMapping
-    public List<FuelDto> getAllFuels(){
+    public ResponseEntity<List<FuelDto>> getAllFuels(){
         System.out.println("Get All fuel");
         List<Fuel> list = dbFuel.getAllFuels();
-        return fuelMapper.mapToFuelDtoList(list);
+        return ResponseEntity.ok(fuelMapper.mapToFuelDtoList(list));
     }
 
     @GetMapping(value = "{fuelId}")
@@ -36,20 +36,27 @@ public class FuelControler {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createFuel(@RequestBody FuelDto fuelDto){
+    public ResponseEntity<Void> createFuel(@RequestBody FuelDto fuelDto){
         System.out.println("Create Fuel");
         dbFuel.saveFuel(fuelMapper.mapToFuel(fuelDto));
-        ResponseEntity.ok().build();
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public FuelDto updateFuel(@RequestBody FuelDto fuelDto){
+    public ResponseEntity<FuelDto> updateFuel(@RequestBody FuelDto fuelDto){
         System.out.println("Update Fuel");
-        return fuelDto;
+        Fuel fuel = fuelMapper.mapToFuel(fuelDto);
+        Fuel fuelSave = dbFuel.saveFuel(fuel);
+
+        return ResponseEntity.ok(fuelMapper.mapToFuelDto(fuelSave));
     }
     @DeleteMapping(value = "{fuelId}")
-    public void deleteFuel(@PathVariable long fuelId){
+    public ResponseEntity<Void> deleteFuel(@PathVariable long fuelId){
         System.out.println("Delete Fuel");
+        dbFuel.deleteFuel(fuelId);
+
+        return ResponseEntity.ok().build();
     }
 
 }

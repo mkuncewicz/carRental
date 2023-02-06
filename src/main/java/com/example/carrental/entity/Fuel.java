@@ -16,7 +16,7 @@ public class Fuel {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column
     private String name;
