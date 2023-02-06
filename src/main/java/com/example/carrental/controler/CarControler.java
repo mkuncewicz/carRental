@@ -1,11 +1,17 @@
 package com.example.carrental.controler;
 
+import com.example.carrental.database.DbCar;
 import com.example.carrental.domain.CarDto;
+import com.example.carrental.entity.Car;
+import com.example.carrental.exceptions.BodyTypeNotFoundException;
+import com.example.carrental.exceptions.CarNotFoundException;
+import com.example.carrental.exceptions.FuelNotFoundException;
+import com.example.carrental.mapper.CarMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,37 +20,46 @@ import java.util.List;
 @CrossOrigin("*")
 public class CarControler {
 
-    @GetMapping
-    public List<CarDto> getAllCars(){
-        List<CarDto> list = new ArrayList<>();
-        list.add(new CarDto(1L,"brandNameTest1","modelNameTest1",2L,3L,
-                50.0f,5,200,150.0f,"Wroclaw"));
+    private final DbCar dbCar;
+    private final CarMapper carMapper;
 
-        list.add(new CarDto(2L,"brandNameTest2","modelNameTest",3L,3L,
-                60.0f,2,325,250.0f,"Poznan"));
+    @GetMapping
+    public ResponseEntity<List<CarDto>> getAllCars(){
         System.out.println("Get All Cars");
-        return list;
+
+        return ResponseEntity.ok(carMapper.mapToCarDtoList(dbCar.getAllCars()));
     }
 
     @GetMapping(value = "{carId}")
-    public CarDto getCar(@PathVariable long carId){
+    public ResponseEntity<CarDto> getCar(@PathVariable long carId) throws CarNotFoundException {
         System.out.println("Get Car");
-        return new CarDto(carId,"brandNameTest1","modelNameTest1",2L,3L,
-                50.0f,5,200,150.0f,"Wroclaw");
+
+        return ResponseEntity.ok(carMapper.mapToCarDto(dbCar.getCar(carId)));
     }
 
     @PostMapping(MediaType.APPLICATION_JSON_VALUE)
-    public void createCar(@RequestBody CarDto carDto){
+    public ResponseEntity<Void> createCar(@RequestBody CarDto carDto) throws FuelNotFoundException, BodyTypeNotFoundException{
         System.out.println("Create car");
+        dbCar.saveCar(carMapper.mapToCar(carDto));
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(MediaType.APPLICATION_JSON_VALUE)
-    public CarDto updateCar(@RequestBody CarDto carDto){
+    public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDto) throws  FuelNotFoundException, BodyTypeNotFoundException{
         System.out.println("Update Car");
-        return carDto;
+
+        Car car = carMapper.mapToCar(carDto);
+        Car saveCar = dbCar.saveCar(car);
+
+        return ResponseEntity.ok(carMapper.mapToCarDto(saveCar));
     }
     @DeleteMapping(value = "{carId}")
-    public void deleteCar(@PathVariable long carId){
+    public ResponseEntity<Void> deleteCar(@PathVariable long carId){
         System.out.println("Delete Car");
+
+        dbCar.deleteCar(carId);
+
+        return ResponseEntity.ok().build();
     }
 }
