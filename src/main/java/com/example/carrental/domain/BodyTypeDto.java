@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class BodyTypeDto {
-    private Long id;
+    private long id;
     private String name;
 }

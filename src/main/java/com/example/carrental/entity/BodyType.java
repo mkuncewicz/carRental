@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -15,11 +16,18 @@ public class BodyType {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "bodyType_id")
     private List<Car> cars;
+
+
+    public BodyType(long id, String name) {
+        this.id = id;
+        this.name = name;
+        this.cars = new ArrayList<>();
+    }
 }
