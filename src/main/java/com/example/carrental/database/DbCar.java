@@ -1,7 +1,9 @@
 package com.example.carrental.database;
 
 import com.example.carrental.entity.Car;
+import com.example.carrental.exceptions.BodyTypeNotFoundException;
 import com.example.carrental.exceptions.CarNotFoundException;
+import com.example.carrental.exceptions.FuelNotFoundException;
 import com.example.carrental.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,10 @@ public class DbCar {
 
     private final CarRepository carRepository;
 
+    private final DbFuel dbFuel;
+
+    private final DbBodyType dbBodyType;
+
     public List<Car> getAllCars(){
         return carRepository.findAll();
     }
@@ -22,7 +28,13 @@ public class DbCar {
         return carRepository.findById(carId).orElseThrow(CarNotFoundException::new);
     }
 
-    public Car saveCar (Car car){
+    public Car saveCar (Car car) throws FuelNotFoundException, BodyTypeNotFoundException {
+        long fuelId = car.getFuel().getId();
+        long bodyId = car.getBodyType().getId();
+
+        dbFuel.getFuel(fuelId).getCars().add(car);
+        dbBodyType.getBodyType(bodyId).getCars().add(car);
+
         return carRepository.save(car);
     }
 
