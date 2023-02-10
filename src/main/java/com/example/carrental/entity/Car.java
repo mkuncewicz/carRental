@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Entity(name = "cars")
 public class Car {
-
+//
     @Id
     @GeneratedValue
     private long id;
