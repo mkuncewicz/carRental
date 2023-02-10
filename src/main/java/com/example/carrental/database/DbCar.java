@@ -31,11 +31,11 @@ public class DbCar {
     public Car saveCar (Car car) throws FuelNotFoundException, BodyTypeNotFoundException {
         long fuelId = car.getFuel().getId();
         long bodyId = car.getBodyType().getId();
+        Car newCar = carRepository.save(car);
+        dbFuel.getFuel(fuelId).getCars().add(newCar);
+        dbBodyType.getBodyType(bodyId).getCars().add(newCar);
 
-        dbFuel.getFuel(fuelId).getCars().add(car);
-        dbBodyType.getBodyType(bodyId).getCars().add(car);
-
-        return carRepository.save(car);
+        return newCar;
     }
 
     public void deleteCar(long carId){

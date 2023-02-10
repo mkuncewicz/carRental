@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Getter
 public class CarDto {
 
-    private Long id;
+    private long id;
     private String brandName;
     private String model;
-    private Long bodyType_id;
-    private Long fuel_id;
+    private long bodyType_id;
+    private long fuel_id;
     private float amOfFuel;
     private int numOfPlaces;
     private int enPower;

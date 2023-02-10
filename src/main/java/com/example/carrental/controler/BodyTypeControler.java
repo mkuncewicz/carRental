@@ -29,7 +29,7 @@ public class BodyTypeControler {
     }
 
     @GetMapping(value = "{bodyId}")
-    public ResponseEntity<BodyTypeDto> getDbBodyType(@PathVariable long bodyId) throws BodyTypeNotFoundException {
+    public ResponseEntity<BodyTypeDto> getBodyType(@PathVariable long bodyId) throws BodyTypeNotFoundException {
         System.out.println("Get BodyType");
 
         return ResponseEntity.ok(bodyTypeMapper.mapToBodyTypeDto(dbBodyType.getBodyType(bodyId)));
