@@ -37,7 +37,7 @@ public class CarControler {
         return ResponseEntity.ok(carMapper.mapToCarDto(dbCar.getCar(carId)));
     }
 
-    @PostMapping(MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createCar(@RequestBody CarDto carDto) throws FuelNotFoundException, BodyTypeNotFoundException{
         System.out.println("Create car");
         dbCar.saveCar(carMapper.mapToCar(carDto));
@@ -45,7 +45,7 @@ public class CarControler {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDto) throws  FuelNotFoundException, BodyTypeNotFoundException{
         System.out.println("Update Car");
 

@@ -6,6 +6,7 @@ import com.example.carrental.domain.CarDto;
 import com.example.carrental.entity.Car;
 import com.example.carrental.exceptions.BodyTypeNotFoundException;
 import com.example.carrental.exceptions.FuelNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class CarMapper {
 //
+    @Autowired
     private DbFuel dbFuel;
+    @Autowired
     private DbBodyType dbBodyType;
 
     public Car mapToCar(CarDto carDto) throws BodyTypeNotFoundException,FuelNotFoundException {

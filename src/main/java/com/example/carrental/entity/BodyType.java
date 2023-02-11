@@ -21,7 +21,7 @@ public class BodyType {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bodyType_id")
+    @JoinColumn(name = "body_type_id")
     private List<Car> cars;
 
 

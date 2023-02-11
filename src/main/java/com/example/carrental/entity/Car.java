@@ -25,7 +25,7 @@ public class Car {
     private String model;
 
     @ManyToOne
-    @JoinColumn(name = "bodyType_id")
+    @JoinColumn(name = "body_type_id")
     private BodyType bodyType;
 
     @ManyToOne
@@ -64,4 +64,5 @@ public class Car {
         this.location = location;
         this.reservations = new ArrayList<>();
     }
+
 }

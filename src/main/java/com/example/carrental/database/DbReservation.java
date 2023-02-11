@@ -1,10 +1,7 @@
 package com.example.carrental.database;
 
-import com.example.carrental.entity.Car;
 import com.example.carrental.entity.Reservation;
-import com.example.carrental.exceptions.BodyTypeNotFoundException;
 import com.example.carrental.exceptions.CarNotFoundException;
-import com.example.carrental.exceptions.FuelNotFoundException;
 import com.example.carrental.exceptions.ReservationNotFoundException;
 import com.example.carrental.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;

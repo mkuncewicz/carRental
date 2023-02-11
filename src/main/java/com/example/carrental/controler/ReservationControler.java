@@ -2,7 +2,6 @@ package com.example.carrental.controler;
 
 import com.example.carrental.database.DbReservation;
 import com.example.carrental.domain.ReservationDto;
-import com.example.carrental.entity.Car;
 import com.example.carrental.entity.Reservation;
 import com.example.carrental.exceptions.CarNotFoundException;
 import com.example.carrental.exceptions.ReservationNotFoundException;
@@ -12,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,7 +33,6 @@ public class ReservationControler {
     @GetMapping(value = "{resId}")
     public ResponseEntity<ReservationDto> getReservation(@PathVariable long resId) throws ReservationNotFoundException {
         System.out.println("Get Reservation");
-
         return ResponseEntity.ok(reservationMapper.mapToReservationDto(dbReservation.getReservation(resId)));
     }
 
