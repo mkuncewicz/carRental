@@ -14,6 +14,7 @@ import java.util.List;
 public class DbReservation {
 
     private final ReservationRepository repository;
+
     private final DbCar dbCar;
 
 
@@ -27,9 +28,10 @@ public class DbReservation {
 
     public Reservation saveReservation (Reservation reservation) throws CarNotFoundException{
         long carId = reservation.getCar().getId();
-        dbCar.getCar(carId).getReservations().add(reservation);
+        Reservation saveReservation = repository.save(reservation);
+        dbCar.getCar(carId).getReservations().add(saveReservation);
 
-        return saveReservation(reservation);
+        return saveReservation;
     }
 
     public void deleteReservation(long resId){

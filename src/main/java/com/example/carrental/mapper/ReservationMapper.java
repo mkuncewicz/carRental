@@ -4,6 +4,7 @@ import com.example.carrental.database.DbCar;
 import com.example.carrental.domain.ReservationDto;
 import com.example.carrental.entity.Reservation;
 import com.example.carrental.exceptions.CarNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ReservationMapper {
-
+    @Autowired
     private DbCar dbCar;
 
     public Reservation mapToReservation(ReservationDto reservationDto) throws CarNotFoundException {
