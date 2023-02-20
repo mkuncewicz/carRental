@@ -51,6 +51,10 @@ public class Car {
     @JoinColumn(name = "car_id")
     private List<Reservation> reservations;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "car_id")
+    private List<Order> orders;
+
     public Car(long id, String brandName, String model, BodyType bodyType, Fuel fuel, float amOfFuel, int numOfPlaces, int enPower, float pricePerDay, String location) {
         this.id = id;
         this.brandName = brandName;
@@ -63,6 +67,7 @@ public class Car {
         this.pricePerDay = pricePerDay;
         this.location = location;
         this.reservations = new ArrayList<>();
+        this.orders = new ArrayList<>();
     }
 
 }
