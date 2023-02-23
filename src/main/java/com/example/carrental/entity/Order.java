@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,4 +38,22 @@ public class Order {
 
     @Column
     private String returnLocation;
+
+    @ManyToMany
+    @JoinTable(
+            name = "order_acces",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "acces_id")
+    )
+    private List<Accessory> accessories;
+
+    public Order(Long id, Reservation reservation, Car car, float price, float discout, Date returnDate, String returnLocation) {
+        this.id = id;
+        this.reservation = reservation;
+        this.car = car;
+        this.price = price;
+        this.discout = discout;
+        this.returnDate = returnDate;
+        this.returnLocation = returnLocation;
+    }
 }
