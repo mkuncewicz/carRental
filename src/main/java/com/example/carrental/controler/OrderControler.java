@@ -4,10 +4,12 @@ package com.example.carrental.controler;
 import com.example.carrental.database.DbOrder;
 import com.example.carrental.domain.OrderDto;
 import com.example.carrental.entity.Order;
+import com.example.carrental.exceptions.AccessoryNotFoundException;
 import com.example.carrental.exceptions.CarNotFoundException;
 import com.example.carrental.exceptions.OrderNotFoundException;
 import com.example.carrental.exceptions.ReservationNotFoundException;
 import com.example.carrental.mapper.OrderMapper;
+import com.example.carrental.nazwadozmiany.OrderFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,8 @@ public class OrderControler {
 
     private final DbOrder dbOrder;
     private final OrderMapper orderMapper;
+
+    private final OrderFacade fasadaOrder;
 
     @GetMapping
     public ResponseEntity<List<OrderDto>> getAllOrders(){
@@ -63,6 +67,15 @@ public class OrderControler {
         System.out.println("Delete order");
 
         dbOrder.deleteOrder(orderId);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "{orderId},{accId}")
+    public ResponseEntity<Void> addAccToOrder(@PathVariable long orderId, @PathVariable long accId) throws OrderNotFoundException, AccessoryNotFoundException {
+        System.out.println("ManyToManyTest");
+
+         fasadaOrder.addAccToOrder(orderId,accId);
 
         return ResponseEntity.ok().build();
     }

@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,13 +38,21 @@ public class Order {
     @Column
     private String returnLocation;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "order_acces",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "acces_id")
     )
-    private List<Accessory> accessories;
+    private Set<Accessory> accessories;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "order_pen",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "pen_id")
+    )
+    private Set<Penalty> penalties;
 
     public Order(Long id, Reservation reservation, Car car, float price, float discout, Date returnDate, String returnLocation) {
         this.id = id;
@@ -55,5 +62,7 @@ public class Order {
         this.discout = discout;
         this.returnDate = returnDate;
         this.returnLocation = returnLocation;
+        this.accessories = new HashSet<>();
+        this.penalties = new HashSet<>();
     }
 }
