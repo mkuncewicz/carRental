@@ -1,8 +1,7 @@
 package com.example.carrental.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.*;
@@ -16,6 +15,7 @@ public class Order {
     @Id
     @GeneratedValue
     private Long id;
+
 
     @ManyToOne
     @JoinColumn(name = "reservation_id")
@@ -38,13 +38,15 @@ public class Order {
     @Column
     private String returnLocation;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
+    @Setter
     @JoinTable(
             name = "order_acces",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "acces_id")
     )
-    private Set<Accessory> accessories;
+    private Set<Accessory> accessories = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -62,7 +64,6 @@ public class Order {
         this.discout = discout;
         this.returnDate = returnDate;
         this.returnLocation = returnLocation;
-        this.accessories = new HashSet<>();
         this.penalties = new HashSet<>();
     }
 }

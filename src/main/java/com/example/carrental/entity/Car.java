@@ -1,8 +1,8 @@
 package com.example.carrental.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,10 +25,12 @@ public class Car {
     private String model;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "body_type_id")
     private BodyType bodyType;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "fuel_id")
     private Fuel fuel;
 
@@ -47,9 +49,11 @@ public class Car {
     @Column
     private String location;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")
     private List<Reservation> reservations;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")

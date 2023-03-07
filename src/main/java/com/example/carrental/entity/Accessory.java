@@ -1,5 +1,6 @@
 package com.example.carrental.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Accessory {
     @Column
     private float price;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "accessories")
     private Set<Order> orders;
 

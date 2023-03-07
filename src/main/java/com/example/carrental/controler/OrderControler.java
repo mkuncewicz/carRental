@@ -71,12 +71,11 @@ public class OrderControler {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(value = "{orderId},{accId}")
-    public ResponseEntity<Void> addAccToOrder(@PathVariable long orderId, @PathVariable long accId) throws OrderNotFoundException, AccessoryNotFoundException {
+    @PostMapping(value = "/{orderId}/{accId}")
+    public ResponseEntity<Order> addAccToOrder(@PathVariable long orderId, @PathVariable long accId) throws OrderNotFoundException, CarNotFoundException, AccessoryNotFoundException, ReservationNotFoundException {
         System.out.println("ManyToManyTest");
 
-         fasadaOrder.addAccToOrder(orderId,accId);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(fasadaOrder.addAccToOrder(orderId,accId));
     }
 }
