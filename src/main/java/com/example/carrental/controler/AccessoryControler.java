@@ -3,8 +3,13 @@ package com.example.carrental.controler;
 import com.example.carrental.database.DbAccessory;
 import com.example.carrental.domain.AccessoryDto;
 import com.example.carrental.entity.Accessory;
+import com.example.carrental.entity.Order;
 import com.example.carrental.exceptions.AccessoryNotFoundException;
+import com.example.carrental.exceptions.CarNotFoundException;
+import com.example.carrental.exceptions.OrderNotFoundException;
+import com.example.carrental.exceptions.ReservationNotFoundException;
 import com.example.carrental.mapper.AccessoryMapper;
+import com.example.carrental.nazwadozmiany.OrderFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +25,8 @@ public class AccessoryControler {
 
     private final DbAccessory dbAccessory;
     private final AccessoryMapper accessoryMapper;
+
+    private final OrderFacade fasadaOrder;
 
     @GetMapping
     public ResponseEntity<List<AccessoryDto>> getAllAccessories(){
@@ -56,5 +63,13 @@ public class AccessoryControler {
         System.out.println("Delete Accessory");
         dbAccessory.deleteAccesory(accId);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/{orderId}/{accId}")
+    public ResponseEntity<Order> addAccToOrder(@PathVariable long orderId, @PathVariable long accId) throws OrderNotFoundException, CarNotFoundException, AccessoryNotFoundException, ReservationNotFoundException {
+        System.out.println("Order_acces");
+
+
+        return ResponseEntity.ok(fasadaOrder.addAccToOrder(orderId,accId));
     }
 }

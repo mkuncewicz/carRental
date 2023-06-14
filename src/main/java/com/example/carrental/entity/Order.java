@@ -1,10 +1,14 @@
 package com.example.carrental.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,12 +53,13 @@ public class Order {
     private Set<Accessory> accessories = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @Setter
     @JoinTable(
             name = "order_pen",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "pen_id")
     )
-    private Set<Penalty> penalties;
+    private Set<Penalty> penalties = new HashSet<>();
 
     public Order(Long id, Reservation reservation, Car car, float price, float discout, Date returnDate, String returnLocation) {
         this.id = id;
@@ -64,6 +69,5 @@ public class Order {
         this.discout = discout;
         this.returnDate = returnDate;
         this.returnLocation = returnLocation;
-        this.penalties = new HashSet<>();
     }
 }

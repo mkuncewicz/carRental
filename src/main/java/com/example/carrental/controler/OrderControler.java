@@ -4,10 +4,7 @@ package com.example.carrental.controler;
 import com.example.carrental.database.DbOrder;
 import com.example.carrental.domain.OrderDto;
 import com.example.carrental.entity.Order;
-import com.example.carrental.exceptions.AccessoryNotFoundException;
-import com.example.carrental.exceptions.CarNotFoundException;
-import com.example.carrental.exceptions.OrderNotFoundException;
-import com.example.carrental.exceptions.ReservationNotFoundException;
+import com.example.carrental.exceptions.*;
 import com.example.carrental.mapper.OrderMapper;
 import com.example.carrental.nazwadozmiany.OrderFacade;
 import lombok.RequiredArgsConstructor;
@@ -69,13 +66,5 @@ public class OrderControler {
         dbOrder.deleteOrder(orderId);
 
         return ResponseEntity.ok().build();
-    }
-
-    @PostMapping(value = "/{orderId}/{accId}")
-    public ResponseEntity<Order> addAccToOrder(@PathVariable long orderId, @PathVariable long accId) throws OrderNotFoundException, CarNotFoundException, AccessoryNotFoundException, ReservationNotFoundException {
-        System.out.println("ManyToManyTest");
-
-
-        return ResponseEntity.ok(fasadaOrder.addAccToOrder(orderId,accId));
     }
 }

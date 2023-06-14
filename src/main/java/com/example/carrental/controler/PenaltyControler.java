@@ -5,11 +5,12 @@ import com.example.carrental.database.DbPenalty;
 import com.example.carrental.domain.AccessoryDto;
 import com.example.carrental.domain.PenaltyDto;
 import com.example.carrental.entity.Accessory;
+import com.example.carrental.entity.Order;
 import com.example.carrental.entity.Penalty;
-import com.example.carrental.exceptions.AccessoryNotFoundException;
-import com.example.carrental.exceptions.PenaltyNotFoundException;
+import com.example.carrental.exceptions.*;
 import com.example.carrental.mapper.AccessoryMapper;
 import com.example.carrental.mapper.PenaltyMapper;
+import com.example.carrental.nazwadozmiany.OrderFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,8 @@ public class PenaltyControler {
 
     private final DbPenalty dbPenalty;
     private final PenaltyMapper penaltyMapper;
+
+    private final OrderFacade fasadaOrder;
 
     @GetMapping
     public ResponseEntity<List<PenaltyDto>> getAllAccessories(){
@@ -61,5 +64,12 @@ public class PenaltyControler {
         System.out.println("Delete Penalty");
         dbPenalty.deletePenalty(penId);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/{orderId}/{penId}")
+    public ResponseEntity<Order> addPenToOrder(@PathVariable long orderId, @PathVariable long penId) throws OrderNotFoundException, PenaltyNotFoundException, CarNotFoundException, ReservationNotFoundException {
+        System.out.println("Order_Pen");
+
+        return ResponseEntity.ok(fasadaOrder.addPenToOrder(orderId,penId));
     }
 }
