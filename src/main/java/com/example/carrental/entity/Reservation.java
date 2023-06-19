@@ -22,21 +22,24 @@ public class Reservation {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @Column
-    private Date dateStart;
-    @Column
-    private Date dateEnd;
 
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "reservation_id")
     private List<Order> orders;
 
-    public Reservation(long id, Car car, Date dateStart, Date dateEnd) {
+
+    @ManyToMany
+    @JoinTable(
+            name = "reservation_calendars",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "calendar_id")
+    )
+    private List<Calendar> calendars;
+
+    public Reservation(long id, Car car) {
         this.id = id;
         this.car = car;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
         this.orders = new ArrayList<>();
     }
 }

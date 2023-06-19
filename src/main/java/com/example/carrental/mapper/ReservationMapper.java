@@ -16,12 +16,11 @@ public class ReservationMapper {
     private DbCar dbCar;
 
     public Reservation mapToReservation(ReservationDto reservationDto) throws CarNotFoundException {
-        return new Reservation(reservationDto.getId(),dbCar.getCar(reservationDto.getCar_id()),
-                reservationDto.getDateStart(),reservationDto.getDateEnd());
+        return new Reservation(reservationDto.getId(),dbCar.getCar(reservationDto.getCar_id()));
     }
 
     public ReservationDto mapToReservationDto(Reservation reservation){
-        return new ReservationDto(reservation.getId(),reservation.getCar().getId(),reservation.getDateStart(),reservation.getDateEnd());
+        return new ReservationDto(reservation.getId(), reservation.getCar().getId());
     }
 
     public List<ReservationDto> mapToReservationDtoList(final List<Reservation> list){

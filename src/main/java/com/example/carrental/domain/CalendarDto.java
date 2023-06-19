@@ -9,9 +9,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class ReservationDto {
+public class CalendarDto {
 
     private long id;
-    private Long car_id;
-
+    private Date date;
 }
