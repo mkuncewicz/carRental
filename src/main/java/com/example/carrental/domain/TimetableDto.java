@@ -9,7 +9,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class CalendarDto {
+public class TimetableDto {
 
     private long id;
     private Date date;

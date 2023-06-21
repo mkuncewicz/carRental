@@ -1,13 +1,13 @@
 package com.example.carrental.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,18 +28,17 @@ public class Reservation {
     @JoinColumn(name = "reservation_id")
     private List<Order> orders;
 
-
+    @Setter
     @ManyToMany
     @JoinTable(
             name = "reservation_calendars",
             joinColumns = @JoinColumn(name = "reservation_id"),
             inverseJoinColumns = @JoinColumn(name = "calendar_id")
     )
-    private List<Calendar> calendars;
+    private Set<Timetable> calendars = new HashSet<>();
 
     public Reservation(long id, Car car) {
         this.id = id;
         this.car = car;
-        this.orders = new ArrayList<>();
     }
 }
