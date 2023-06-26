@@ -11,9 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Entity(name = "cars")
 public class Car {
-//
+
     @Id
     @GeneratedValue
     private long id;
