@@ -1,4 +1,4 @@
-package com.example.carrental.nazwadozmiany;
+package com.example.carrental.facade;
 
 import com.example.carrental.database.DbReservation;
 import com.example.carrental.database.DbTimetable;
@@ -9,7 +9,6 @@ import com.example.carrental.exceptions.TimetableNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Set;
 
 @Component

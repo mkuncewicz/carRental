@@ -7,7 +7,7 @@ import com.example.carrental.exceptions.CarNotFoundException;
 import com.example.carrental.exceptions.ReservationNotFoundException;
 import com.example.carrental.exceptions.TimetableNotFoundException;
 import com.example.carrental.mapper.TimetableMapper;
-import com.example.carrental.nazwadozmiany.ReservationFacade;
+import com.example.carrental.facade.ReservationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

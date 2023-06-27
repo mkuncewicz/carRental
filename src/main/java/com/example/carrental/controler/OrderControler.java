@@ -6,7 +6,7 @@ import com.example.carrental.domain.OrderDto;
 import com.example.carrental.entity.Order;
 import com.example.carrental.exceptions.*;
 import com.example.carrental.mapper.OrderMapper;
-import com.example.carrental.nazwadozmiany.OrderFacade;
+import com.example.carrental.facade.OrderFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

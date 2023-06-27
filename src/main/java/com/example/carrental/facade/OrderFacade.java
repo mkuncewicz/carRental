@@ -1,4 +1,4 @@
-package com.example.carrental.nazwadozmiany;
+package com.example.carrental.facade;
 
 import com.example.carrental.database.*;
 import com.example.carrental.entity.Accessory;
