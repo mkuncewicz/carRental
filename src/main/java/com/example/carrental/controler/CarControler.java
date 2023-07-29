@@ -6,6 +6,7 @@ import com.example.carrental.entity.Car;
 import com.example.carrental.exceptions.BodyTypeNotFoundException;
 import com.example.carrental.exceptions.CarNotFoundException;
 import com.example.carrental.exceptions.FuelNotFoundException;
+import com.example.carrental.facade.CarFacade;
 import com.example.carrental.mapper.CarMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -22,6 +23,7 @@ public class CarControler {
 //
     private final DbCar dbCar;
     private final CarMapper carMapper;
+    private final CarFacade carFacade;
 
     @GetMapping
     public ResponseEntity<List<CarDto>> getAllCars(){
@@ -35,6 +37,13 @@ public class CarControler {
         System.out.println("Get Car");
 
         return ResponseEntity.ok(carMapper.mapToCarDto(dbCar.getCar(carId)));
+    }
+
+    @GetMapping(value = "/brandname/{name}")
+    public ResponseEntity<List<CarDto>> getCarsWithBrandname(@PathVariable String name){
+        List <Car> list = carFacade.showCarWithBrandname(name);
+
+        return ResponseEntity.ok(carMapper.mapToCarDtoList(list));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
